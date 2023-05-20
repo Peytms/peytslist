@@ -1,174 +1,249 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Listed Things Under</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
+    <link rel="icon" href="shanks.png">
+  <title>ペジ
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: linear-gradient(to right, #2e303e, #161823);
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fade-in 1s ease;
+    }
 
-        .title {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+    h1 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        .todo-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #e6e6e6;
-            animation: fadeIn 0.5s ease;
-        }
+    .todo-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      animation: slide-in 0.5s ease;
+    }
 
-        .todo-item:last-child {
-            border-bottom: none;
-        }
+    .checkbox {
+      margin-right: 10px;
+    }
 
-        .todo-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
+    .todo-text {
+      flex: 1;
+      font-size: 16px;
+      line-height: 1.4;
+    }
 
-        .todo-item label {
-            flex-grow: 1;
-            font-size: 16px;
-        }
+    /* Updated style for the input field */
+    #todo-input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
 
-        .add-form {
-            display: flex;
-            margin-top: 20px;
-        }
+    /* Updated style for the submit button */
+    #todo-form button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: #202927;
+      color: #fdf3d7;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .add-form input[type="text"] {
-            flex-grow: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
+    #todo-form button:hover {
+      background-color: #00a383;
+    }
 
-        .add-form button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
 
-        .add-form button:hover {
-            background-color: #45a049;
-        }
+    @keyframes slide-in {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
 
-        .message {
-            text-align: center;
-            font-size: 16px;
-            color: #666666;
-            margin-top: 10px;
-            animation: slideIn 0.5s ease;
-        }
+    .delete-button {
+      margin-left: 10px;
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+    }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-    </style>
+    /* Add your additional styles here */
+    /* You can customize the background animation, text animations, and more */
+  </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">ペイトン・リスト
-        </h1>
-        <div id="todo-list">
-        </div>
-        <form class="add-form">
-            <input type="text" id="new-task" placeholder="Add a new task">
-            <button type="submit">Add</button>
+        <h1>ペジ
+            List</h1>
+        <div id="todo-list"></div>
+        <form id="todo-form">
+          <input type="text" id="todo-input" placeholder="Add a new task" />
+          <button type="submit">Add</button>
         </form>
-        <p class="message" id="message"></p>
-    </div>
+      </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var todoList = document.getElementById("todo-list");
-            var message = document.getElementById("message");
-            var tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const todoList = document.getElementById("todo-list");
+      const todoForm = document.getElementById("todo-form");
+      const todoInput = document.getElementById("todo-input");
 
-            function renderTasks() {
-                todoList.innerHTML = "";
-                tasks.forEach(function(task) {
-                    var todoItem = document.createElement("div");
-                    todoItem.classList.add("todo-item");
-                    todoItem.innerHTML = `
-                        <input type="checkbox">
-                        <label>${task}</label>
-                        <button class="delete-button">Delete</button>
-                    `;
-                    todoList.appendChild(todoItem);
-                });
+      // Load tasks from local storage
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-                if (tasks.length === 0) {
-                    message.textContent = "No tasks found";
-                } else {
-                    message.textContent = "";
-                }
-            }
+      // Render the tasks
+      function renderTasks() {
+        todoList.innerHTML = "";
 
-            renderTasks();
+        savedTasks.forEach(function(task) {
+          const todoItem = document.createElement("div");
+          todoItem.classList.add("todo-item");
 
-            document.querySelector(".add-form").addEventListener("submit", function(event) {
-                event.preventDefault();
-                var newTaskInput = document.getElementById("new-task");
-                var newTask = newTaskInput.value.trim();
-                if (newTask !== "") {
-                    tasks.push(newTask);
-                    localStorage.setItem("tasks", JSON.stringify(tasks));
-                    newTaskInput.value = "";
-                    renderTasks();
-                }
-            });
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.completed;
+          checkbox.addEventListener("change", function() {
+            task.completed = checkbox.checked;
+            saveTasks();
+          });
 
-            document.addEventListener("click", function(event) {
-                if (event.target.classList.contains("delete-button")) {
-                    var taskItem = event.target.closest(".todo-item");
-                    var taskLabel = taskItem.querySelector("label");
-                    var taskText = taskLabel.textContent;
-                    var taskIndex = tasks.indexOf(taskText);
-                    if (taskIndex !== -1) {
-                        tasks.splice(taskIndex, 1);
-                        localStorage.setItem("tasks", JSON.stringify(tasks));
-                        renderTasks();
-                    }
-                }
-            });
+          const todoText = document.createElement("span");
+          todoText.classList.add("todo-text");
+          todoText.textContent = task.text;
+
+          todoItem.appendChild(checkbox);
+          todoItem.appendChild(todoText);
+          todoList.appendChild(todoItem);
         });
-    </script>
+      }
+
+      // Add a new task
+      todoForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const text = todoInput.value.trim();
+        if (text !== "") {
+          savedTasks.push({
+            text: text,
+            completed: false
+          });
+          saveTasks();
+          todoInput.value = "";
+          renderTasks();
+        }
+      });
+
+      // Save tasks to local storage
+      function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(savedTasks));
+      }
+
+      // Initial render
+      renderTasks();
+    });
+    
+  </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const todoList = document.getElementById("todo-list");
+      const todoForm = document.getElementById("todo-form");
+      const todoInput = document.getElementById("todo-input");
+
+      // Load tasks from local storage
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      // Render the tasks
+      function renderTasks() {
+        todoList.innerHTML = "";
+
+        savedTasks.forEach(function(task, index) {
+          const todoItem = document.createElement("div");
+          todoItem.classList.add("todo-item");
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.completed;
+          checkbox.addEventListener("change", function() {
+            task.completed = checkbox.checked;
+            saveTasks();
+          });
+
+          const todoText = document.createElement("span");
+          todoText.classList.add("todo-text");
+          todoText.textContent = task.text;
+
+          const deleteButton = document.createElement("button");
+          deleteButton.classList.add("delete-button");
+          deleteButton.innerHTML = "&times;";
+          deleteButton.addEventListener("click", function() {
+            savedTasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+          });
+
+          todoItem.appendChild(checkbox);
+          todoItem.appendChild(todoText);
+          todoItem.appendChild(deleteButton);
+          todoList.appendChild(todoItem);
+        });
+      }
+
+      // Add a new task
+      todoForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const text = todoInput.value.trim();
+        if (text !== "") {
+          savedTasks.push({
+            text: text,
+            completed: false
+          });
+          saveTasks();
+          todoInput.value = "";
+          renderTasks();
+        }
+      });
+
+      // Save tasks to local storage
+      function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(savedTasks));
+      }
+
+      // Initial render
+      renderTasks();
+    });
+  </script>
+  
 </body>
 </html>

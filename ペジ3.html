@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Animated Notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #notes-container {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #notes {
+      position: relative;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      animation: animateBackground 20s linear infinite;
+      transition: transform 0.3s ease;
+    }
+
+    #notes:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes animateBackground {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      animation: animateText 3s ease infinite alternate;
+    }
+
+    @keyframes animateText {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.2); }
+    }
+
+    textarea {
+      width: 300px;
+      height: 200px;
+      resize: none;
+      font-size: 14px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    textarea:focus {
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="notes-container">
+    <div id="notes">
+      <h1 class="animated-text">Your Notes</h1>
+      <textarea id="note-textarea" placeholder="Write your note here"></textarea>
+    </div>
+  </div>
+
+  <script>
+    // Load saved note from local storage
+    window.addEventListener('DOMContentLoaded', () => {
+      const noteTextarea = document.getElementById('note-textarea');
+      const savedNote = localStorage.getItem('note');
+      if (savedNote) {
+        noteTextarea.value = savedNote;
+      }
+    });
+
+    // Save note to local storage
+    const noteTextarea = document.getElementById('note-textarea');
+    noteTextarea.addEventListener('input', () => {
+      const note = noteTextarea.value;
+      localStorage.setItem('note', note);
+    });
+  </script>
+</body>
+</html>

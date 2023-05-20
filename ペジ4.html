@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple RPG Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    
+    h1 {
+      margin-bottom: 20px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #00b894;
+      border: none;
+      border-radius: 4px;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #00a383;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple RPG Game</h1>
+  <div id="game-container">
+    <p id="story-text">Welcome to the RPG game! Press the button to start.</p>
+    <button id="action-button" disabled>Start</button>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const storyText = document.getElementById("story-text");
+      const actionButton = document.getElementById("action-button");
+
+      let gameStarted = false;
+      let playerHealth = 100;
+
+      function updateGame() {
+        if (gameStarted) {
+          // Game logic goes here
+          storyText.textContent = "You are in a dangerous dungeon. What do you do?";
+          actionButton.textContent = "Attack";
+          actionButton.addEventListener("click", attack);
+          actionButton.disabled = false;
+        } else {
+          storyText.textContent = "Welcome to the RPG game! Press the button to start.";
+          actionButton.textContent = "Start";
+          actionButton.addEventListener("click", startGame);
+          actionButton.disabled = false;
+        }
+      }
+
+      function startGame() {
+        gameStarted = true;
+        updateGame();
+      }
+
+      function attack() {
+        const damage = Math.floor(Math.random() * 10) + 1; // Random damage between 1 and 10
+        const enemyHealth = 50; // Placeholder for enemy health
+
+        storyText.textContent = "You attacked the enemy and dealt " + damage + " damage.";
+
+        // Update enemy health and check if it's defeated
+        enemyHealth -= damage;
+        if (enemyHealth <= 0) {
+          storyText.textContent += " The enemy is defeated! You win!";
+          actionButton.disabled = true;
+        } else {
+          // Enemy's turn to attack
+          const enemyDamage = Math.floor(Math.random() * 5) + 1; // Random damage between 1 and 5
+          playerHealth -= enemyDamage;
+          storyText.textContent += " The enemy attacked you and dealt " + enemyDamage + " damage.";
+
+          if (playerHealth <= 0) {
+            storyText.textContent += " You were defeated! Game over.";
+            actionButton.disabled = true;
+          }
+        }
+      }
+
+      updateGame();
+    });
+  </script>
+</body>
+</html>

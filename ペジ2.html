@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Animated Transaction Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #FFD700, #FFA500);
+      animation: animatedBackground 20s linear infinite;
+    }
+
+    @keyframes animatedBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form {
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      animation: animatedForm 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes animatedForm {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      animation: animatedText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes animatedText {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+
+    input[type="text"], input[type="number"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #FFA500;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #FF8C00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="form">
+      <h1 class="animated-text">Transaction Form</h1>
+      <input type="text" id="name" placeholder="Name">
+      <input type="number" id="amount" placeholder="Amount">
+      <button id="submitBtn">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    // Save form data to local storage
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const amount = document.getElementById('amount').value;
+
+      // Validate form data
+      if (name.trim() !== '' && amount.trim() !== '') {
+        const transaction = { name, amount };
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        transactions.push(transaction);
+        localStorage.setItem('transactions', JSON.stringify(transactions));
+
+        // Clear form inputs
+        document.getElementById('name').value = '';
+        document.getElementById('amount').value = '';
+
+        alert('Transaction submitted successfully!');
+      } else {
+        alert('Please fill in all fields!');
+      }
+    });
+  </script>
+</body>
+</html>
