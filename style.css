@@ -1,11 +1,116 @@
+/* Your existing CSS styles here */
+
+/* Advanced-level styling */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
-    background: linear-gradient(to right, #2e303e, #161823);
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background: linear-gradient(to right, #2e303e, #161823);
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  position: relative;
+  color: #fff;
+  font-size: 16px;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #ff3b3b;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #fff;
+  transition: width 0.3s ease;
+  transform-origin: left;
+}
+
+.nav-item.active .underline {
+  width: 100%;
+  transform-origin: left;
+}
+
+.page {
+  display: none;
+  padding: 20px;
+  animation: fade-in 0.5s ease;
+}
+
+.page.active {
+  display: block;
+}
+
+.animated-heading {
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  animation: animateText 3s ease infinite alternate;
+}
+
+.animated-text {
+  animation: animateText 3s ease infinite alternate;
+}
+
+@keyframes animateText {
+  0% {
+    transform: scale(1);
+    color: #ff3b3b;
   }
-.navbar {
+  50% {
+    transform: scale(1.2);
+    color: #00a383;
+  }
+  100% {
+    transform: scale(1);
+    color: #ff3b3b;
+  }
+}
+
+.animated-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #202927;
+  color: #fdf3d7;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.animated-button:hover {
+  background-color: #ff3b3b;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes animateBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+  .navbar {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -34,10 +139,12 @@ body {
     height: 2px;
     background-color: #fff;
     transition: width 0.3s ease;
+    transform-origin: left;
   }
   
   .nav-item.active .underline {
     width: 100%;
+    transform-origin: left;
   }
   
   .page {
@@ -58,19 +165,23 @@ body {
       opacity: 1;
     }
   }
+  
   .container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     animation: fade-in 1s ease;
   }
-
+  
   h1 {
     font-size: 32px;
     text-align: center;
     margin-bottom: 20px;
+    color: #333;
+    animation: animateText 3s ease infinite alternate;
   }
-
+  
+   
   .todo-item {
     display: flex;
     align-items: center;
@@ -78,7 +189,7 @@ body {
     margin-bottom: 10px;
     animation: slide-in 0.5s ease;
   }
-
+  
   .todo-item input[type="text"] {
     flex: 1;
     padding: 5px;
@@ -88,28 +199,29 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
   }
-
+  
   .todo-item .checkbox {
     margin-right: 10px;
+    color: #00a383;
   }
-
+  
   .todo-item .delete-button {
     background: none;
     border: none;
-    color: #ffffff;
+    color: #ff3b3b;
     cursor: pointer;
   }
-
+  
   .todo-item .delete-button:hover {
-    color: #ff3b3b;
+    color: #ff0000;
   }
-
+  
   .filters {
     margin-top: 20px;
     display: flex;
     justify-content: center;
   }
-
+  
   .filters button {
     padding: 5px 10px;
     margin-right: 5px;
@@ -120,23 +232,25 @@ body {
     color: #ffffff;
     cursor: pointer;
   }
-
+  
   .filters button.active {
-    background-color: #00a383;
+    background-color: #ff3b3b;
+    color: #ffffff;
   }
-
+  
   .summary {
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
+    color: #ffffff;
   }
-
+  
   .todo-text {
     flex: 1;
     font-size: 16px;
     line-height: 1.4;
   }
-
+  
   /* Updated style for the input field */
   #todo-input {
     width: 100%;
@@ -148,7 +262,7 @@ body {
     color: #ffffff;
     margin-bottom: 10px;
   }
-
+  
   /* Updated style for the submit button */
   #todo-form button {
     padding: 10px 20px;
@@ -160,29 +274,11 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-
+  
   #todo-form button:hover {
-    background-color: #00a383;
+    background-color: #ff3b3b;
   }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slide-in {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
+  
   #notes-container {
     position: relative;
     height: 100vh;
@@ -191,7 +287,7 @@ body {
     align-items: center;
     overflow: hidden;
   }
-
+  
   #notes {
     position: relative;
     padding: 20px;
@@ -201,28 +297,20 @@ body {
     animation: animateBackground 20s linear infinite;
     transition: transform 0.3s ease;
   }
-
+  
   #notes:hover {
     transform: scale(1.05);
   }
-
+  
   @keyframes animateBackground {
-    0% { background-position: 0 0; }
-    100% { background-position: 100% 100%; }
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
   }
-
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-    animation: animateText 3s ease infinite alternate;
-  }
-
-  @keyframes animateText {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.2); }
-  }
-
+  
   textarea {
     width: 300px;
     height: 200px;
@@ -233,67 +321,60 @@ body {
     border-radius: 5px;
     transition: box-shadow 0.3s ease;
   }
-
+  
   textarea:focus {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
   
-  /* style.css */
-.navbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #333;
-    height: 50px;
-  }
-  
-  .nav-item {
-    position: relative;
-    color: #fff;
-    font-size: 16px;
-    padding: 0 20px;
-    cursor: pointer;
-  }
-  
-  .nav-item span {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .underline {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #fff;
-    transition: width 0.3s ease;
-    transform-origin: left;
-  }
-  
-  .nav-item.active .underline {
-    width: 100%;
-    transform-origin: left;
-  }
-  
-  .page {
-    display: none;
-    padding: 20px;
-    animation: fade-in 0.5s ease;
-  }
-  
-  .page.active {
-    display: block;
-  }
-  
-  @keyframes fade-in {
+  /* Your existing CSS styles here */
+
+@keyframes fadeIn {
     from {
       opacity: 0;
+      transform: translateY(-10px);
     }
     to {
       opacity: 1;
+      transform: translateY(0);
     }
   }
   
+  #todo-list {
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes animateText {
+    0% {
+      transform: scale(1);
+      color: #ff3b3b;
+    }
+    50% {
+      transform: scale(1.2);
+      color: #00a383;
+    }
+    100% {
+      transform: scale(1);
+      color: #ff3b3b;
+    }
+  }
   
+  /* Your existing CSS styles here */
+
+@keyframes animateIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .todo-item {
+    animation: animateIn 0.3s ease;
+  }
+  
+  .animate-in {
+    animation: animateIn 0.3s ease;
+  }
   
