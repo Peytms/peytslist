@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="shanks.png">
+  <title>ペジ
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: linear-gradient(to right, #2e303e, #161823);
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      animation: fade-in 1s ease;
+    }
+
+    h1 {
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      animation: slide-in 0.5s ease;
+    }
+
+    .checkbox {
+      margin-right: 10px;
+    }
+
+    .todo-text {
+      flex: 1;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    /* Updated style for the input field */
+    #todo-input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    /* Updated style for the submit button */
+    #todo-form button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: #202927;
+      color: #fdf3d7;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #todo-form button:hover {
+      background-color: #00a383;
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slide-in {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .delete-button {
+      margin-left: 10px;
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    /* Add your additional styles here */
+    /* You can customize the background animation, text animations, and more */
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ペジ
+            List</h1>
+        <div id="todo-list"></div>
+        <form id="todo-form">
+          <input type="text" id="todo-input" placeholder="Add a new task" />
+          <button type="submit">Add</button>
+        </form>
+      </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const todoList = document.getElementById("todo-list");
+      const todoForm = document.getElementById("todo-form");
+      const todoInput = document.getElementById("todo-input");
+
+      // Load tasks from local storage
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      // Render the tasks
+      function renderTasks() {
+        todoList.innerHTML = "";
+
+        savedTasks.forEach(function(task) {
+          const todoItem = document.createElement("div");
+          todoItem.classList.add("todo-item");
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.completed;
+          checkbox.addEventListener("change", function() {
+            task.completed = checkbox.checked;
+            saveTasks();
+          });
+
+          const todoText = document.createElement("span");
+          todoText.classList.add("todo-text");
+          todoText.textContent = task.text;
+
+          todoItem.appendChild(checkbox);
+          todoItem.appendChild(todoText);
+          todoList.appendChild(todoItem);
+        });
+      }
+
+      // Add a new task
+      todoForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const text = todoInput.value.trim();
+        if (text !== "") {
+          savedTasks.push({
+            text: text,
+            completed: false
+          });
+          saveTasks();
+          todoInput.value = "";
+          renderTasks();
+        }
+      });
+
+      // Save tasks to local storage
+      function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(savedTasks));
+      }
+
+      // Initial render
+      renderTasks();
+    });
+    
+  </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const todoList = document.getElementById("todo-list");
+      const todoForm = document.getElementById("todo-form");
+      const todoInput = document.getElementById("todo-input");
+
+      // Load tasks from local storage
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+      // Render the tasks
+      function renderTasks() {
+        todoList.innerHTML = "";
+
+        savedTasks.forEach(function(task, index) {
+          const todoItem = document.createElement("div");
+          todoItem.classList.add("todo-item");
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.checked = task.completed;
+          checkbox.addEventListener("change", function() {
+            task.completed = checkbox.checked;
+            saveTasks();
+          });
+
+          const todoText = document.createElement("span");
+          todoText.classList.add("todo-text");
+          todoText.textContent = task.text;
+
+          const deleteButton = document.createElement("button");
+          deleteButton.classList.add("delete-button");
+          deleteButton.innerHTML = "&times;";
+          deleteButton.addEventListener("click", function() {
+            savedTasks.splice(index, 1);
+            saveTasks();
+            renderTasks();
+          });
+
+          todoItem.appendChild(checkbox);
+          todoItem.appendChild(todoText);
+          todoItem.appendChild(deleteButton);
+          todoList.appendChild(todoItem);
+        });
+      }
+
+      // Add a new task
+      todoForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const text = todoInput.value.trim();
+        if (text !== "") {
+          savedTasks.push({
+            text: text,
+            completed: false
+          });
+          saveTasks();
+          todoInput.value = "";
+          renderTasks();
+        }
+      });
+
+      // Save tasks to local storage
+      function saveTasks() {
+        localStorage.setItem("tasks", JSON.stringify(savedTasks));
+      }
+
+      // Initial render
+      renderTasks();
+    });
+  </script>
+  
+</body>
+</html>
