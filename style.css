@@ -184,15 +184,16 @@ h1 {
 
 .todo-item {
   display: inline-block;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 50px;
+  align-items: baseline;
+  justify-content: right;
+  margin-bottom: 100px;
   animation: slide-in 1s ease;
 }
 
 .todo-item input[type="text"] {
-  content: 1;
-  padding: 5px;
+  width: max-content;
+  display: block;
+  padding: 10px;
   border: #000;
   border-radius: 100px;
   font-size: 14px;
@@ -652,7 +653,3 @@ textarea:focus {
 .task-item:hover .task-details {
   display: block;
 }
-
-
-
-
