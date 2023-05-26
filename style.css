@@ -183,20 +183,20 @@ h1 {
 }
 
 .todo-item {
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   animation: slide-in 1s ease;
 }
 
 .todo-item input[type="text"] {
-  flex: 1;
+  content: 1;
   padding: 5px;
-  border: none;
-  border-radius: 4px;
+  border: #000;
+  border-radius: 100px;
   font-size: 14px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #3b3a3a1a;
   color: #ffffff;
 }
 
@@ -236,7 +236,7 @@ h1 {
 .todo-item .checkbox .checkmark:after {
   left: 6px;
   top: 2px;
-  width: 5px;
+  width: 10px;
   height: 10px;
   border: solid #fdf3d7;
   border-width: 0 2px 2px 0;
@@ -632,4 +632,27 @@ textarea:focus {
     display: none;
   }
 }
+
+.task-item {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.task-details {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: #f5f5f5;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: none;
+}
+
+.task-item:hover .task-details {
+  display: block;
+}
+
+
+
 
