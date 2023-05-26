@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Peyto List</title>
+  <title>Peyto Listed</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Icon -->
+  <link rel="icon" href="Shanks.ico" type="image/x-icon">
 </head>
 <body>
   <nav>
@@ -22,24 +24,45 @@
       </div>
     </div>
   </nav>
+  
+  <div id="update-list" class="update-list">
+    <h2 class="update-list-heading">Updates</h2>
+    <ul id="update-items" class="update-items">
+      <li class="update-item">Image Embed (You can add Image through Your Task)</li>
+      <li class="update-item">This Update List</li>
+      <li class="update-item">Gradient background</li>
+      <li class="update-item">Reworked Filter</li>
+      <!-- Add more update items as needed -->
+    </ul>
+  </div>
 
   <div id="page-home" class="page active">
     <div class="container">
-      <h1 class="animated-heading">Todo List</h1>
+      <h1 class="animated-heading">Your Lists</h1>
       <div id="todo-list"></div>
       <form id="todo-form">
         <input type="text" id="todo-input" placeholder="Add a new task" />
+        <input type="file" id="image-input" accept="image/*">
         <center>
           <button type="submit" class="animated-button">Add</button>
         </center>
       </form>
-      <div class="filters">
-        <button class="filter-button" data-filter="all" data-action="filter">All</button>
-        <button class="filter-button" data-filter="active" data-action="filter">Active</button>
-        <button class="filter-button" data-filter="completed" data-action="filter">Completed</button>
+      <div class="filter-dropdown">
+        <div class="filter-label" onclick="toggleFilterDropdown()">
+          <span>Filter</span>
+          <svg class="filter-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 7V9H21V7H3ZM7 15V17H17V15H7ZM3 3V5H21V3H3Z" />
+          </svg>
+        </div>
+        <div class="filter-options" id="filter-options">
+          <button class="filter-option" data-filter="all" onclick="applyFilter('all')">All</button>
+          <button class="filter-option" data-filter="active" onclick="applyFilter('active')">Active</button>
+          <button class="filter-option" data-filter="completed" onclick="applyFilter('completed')">Completed</button>
+        </div>
       </div>
+      
       <div class="summary">
-        <span id="task-count"></span> tasks remaining
+        <span id="task-count"></span> lists remaining
       </div>
     </div>
   </div>
@@ -53,11 +76,25 @@
     </div>
   </div>
 
-  <div id="page-contact" class="page">
+   <div id="page-contact" class="page">
     <h2>Contact</h2>
     <p>Get in touch with us.</p>
   </div>
 
+  <script>
+    // JavaScript code to show/hide the update list on hover
+    const updateList = document.getElementById('update-list');
+    const todoForm = document.getElementById('update-items');
+  
+    todoForm.addEventListener('mouseenter', () => {
+      updateList.classList.add('active');
+    });
+  
+    todoForm.addEventListener('mouseleave', () => {
+      updateList.classList.remove('active');
+    });
+  </script>
   <script src="script.js"></script>
+  
 </body>
 </html>
