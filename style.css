@@ -186,8 +186,11 @@ h1 {
   display: inline-block;
   align-items: baseline;
   justify-content: right;
+  border: 2px solid #000;
+  border-radius: 4px;
   margin-bottom: 100px;
   animation: slide-in 1s ease;
+  text-overflow: ellipsis;
 }
 
 .todo-item input[type="text"] {
